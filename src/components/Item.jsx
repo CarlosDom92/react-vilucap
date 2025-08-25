@@ -1,10 +1,10 @@
-import { Button, Card, CardHeader, Col } from "react-bootstrap";
+import {  Card, CardHeader, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
 const Item = ({ product }) => {
   return (
     <Col className="d-flex">
-      <Card className="card">
-        <CardHeader className="h-75">
+      <Card className="card bg-dark text-white border-danger">
+        <CardHeader className="border-secondary ">
           <Card.Img
             variant="top"
             src={product.img}

@@ -1,10 +1,25 @@
 import React, { useState } from "react";
-import { Button, Col, ListGroup, ListGroupItem, Row } from "react-bootstrap";
+import {
+  Breadcrumb,
+  Button,
+  Col,
+  ListGroup,
+  ListGroupItem,
+  Row,
+} from "react-bootstrap";
+import toast, { Toaster } from "react-hot-toast";
 import { MdAddShoppingCart } from "react-icons/md";
-import { Form } from "react-router-dom";
+import { TbShoppingCartDollar } from "react-icons/tb";
+import { Form, useNavigate } from "react-router-dom";
 
 const ItemCount = ({ stock, onAdd }) => {
+  const navigate = useNavigate();
   const [count, setCount] = useState(1);
+  const [viewCart, setviewCart] = useState(false);
+
+  const notify = () =>
+    toast.success("Producto agregado a tu Carrito!", { removeDelay: 500 });
+
   const addProduct = () => {
     if (count < stock) {
       setCount(count + 1);
@@ -17,34 +32,67 @@ const ItemCount = ({ stock, onAdd }) => {
     }
   };
 
-  const buy = ()=>{
-    onAdd(count)
-  }
+  const buy = () => {
+    onAdd(count);
+    setviewCart(true);
+    notify();
+  };
+
+  const returnHome = () => {
+    navigate("/");
+  };
+
+  const goCart = () => {
+    navigate("/cart");
+  };
 
   return (
     <>
-      <Row>
-        <Col>
-          <ListGroup horizontal>
-            <ListGroupItem>
-              <Button variant="danger" onClick={removeProduct}>
-                -
-              </Button>
-            </ListGroupItem>
-            <ListGroupItem>{count}</ListGroupItem>
-            <ListGroupItem>
-              <Button variant="success" onClick={addProduct}>
-                +
-              </Button>
-            </ListGroupItem>
-          </ListGroup>
-        </Col>
-      </Row>
+      {!viewCart && (
+        <>
+          <Row className="bg-dark text-white">
+            <Col>
+              <ListGroup horizontal>
+                <ListGroupItem className="bg-dark bg-dark text-white border-danger">
+                  <Button variant="danger" onClick={removeProduct}>
+                    -
+                  </Button>
+                </ListGroupItem>
+                <ListGroupItem className="bg-dark text-white border-danger">
+                  {count}
+                </ListGroupItem>
+                <ListGroupItem className="bg-dark text-white border-danger">
+                  <Button variant="success" onClick={addProduct}>
+                    +
+                  </Button>
+                </ListGroupItem>
+              </ListGroup>
+            </Col>
+          </Row>
+          <Breadcrumb />
+          <Col className="d-grid gap-2">
+            <Button
+              variant={count > 0 ? "primary" : "danger"}
+              disabled={count < 1}
+              size="lg"
+              onClick={buy}
+            >
+              <MdAddShoppingCart /> Añadir a Carrito
+            </Button>
+          </Col>
+        </>
+      )}
+      <Breadcrumb />
+      <Breadcrumb />
+
       <Row>
         <Col className="d-grid gap-2">
-          <Button variant={count>0?'primary':'danger'} disabled={count < 1} size="lg" onClick={buy}>
-            <MdAddShoppingCart/> Añadir a Carrito
-          </Button>
+          {viewCart && (
+            <Button variant="vilucap" className="icon-hover" onClick={goCart}>
+              {" "}
+              <TbShoppingCartDollar /> Ver Carrito
+            </Button>
+          )}
         </Col>
       </Row>
     </>

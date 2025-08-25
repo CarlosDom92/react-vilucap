@@ -1,35 +1,58 @@
 import { Container, Row, Col } from "react-bootstrap";
-import { getProducts } from "../mock/AsyncService";
 import { useEffect, useState } from "react";
-import ItemList from "./ItemList"
+import ItemList from "./ItemList";
 import { useParams } from "react-router-dom";
+import { addDoc, collection, getDocs, query, where } from "firebase/firestore";
+import { db } from "../service/firebase";
+import LoaderComponent from "./LoaderComponent";
 
 const ListItemContainer = ({ titulo, descripcion }) => {
-  const [data,setData] = useState([])
- const {category} = useParams()
-  useEffect(()=>{
-    getProducts()
-    .then((respuesta)=>{
-      if(category){
-        // const filtrados = productos.filter(item => item.categoria.includes("hombre"));
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const { category } = useParams();
 
-        setData(respuesta.filter((prod)=>prod.category.includes(category)))
-      }else{
-        setData(respuesta)
-      }
-    })
-    .catch((error)=>console.log(error))
-  })
+  useEffect(() => {
+    setLoading(true);
+
+    const productsCollection = category
+      ? query(
+          collection(db, "productos"),
+          where("category", "array-contains", category)
+        )
+      : collection(db, "productos");
+
+    getDocs(productsCollection)
+      .then((res) => {
+        const list = res.docs.map((doc) => {
+          return {
+            id: doc.id,
+            ...doc.data(),
+          };
+        });
+        setData(list);
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      .finally(() => setLoading(false));
+  }, [category]);
+
   return (
-    <Container fluid>
-      <Row>
-        <Col>
-          <h1>{titulo}</h1>
-          <p>{descripcion}</p>
-          <ItemList data={data}/>
-        </Col>
-      </Row>
-    </Container>
+    <>
+      {loading ? (
+        <LoaderComponent />
+      ) : (
+        <Container fluid className="dark">
+          <Row>
+            <Col>
+              <h1>{titulo}</h1>
+              <p>{descripcion}</p>
+              <ItemList data={data} />
+            </Col>
+          </Row>
+        </Container>
+      )}
+    </>
   );
 };
 export default ListItemContainer;

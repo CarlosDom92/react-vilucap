@@ -1,12 +1,50 @@
-# React + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![Logo](/public/logo-vilu.svg)
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+# Vilucap App 🛒
 
-## Expanding the ESLint configuration
+Esta es una App de comercio elecatrónico moderna y responsiva, desarrollada con **React + Vite**, **Boostrap 5** y **FireBase** como base de datos, que permite a los usuarios explorar productos, agregarlos al carrito y realizar compras simuladas.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+
+## 🚀 Características
+
+
+- Catálogo de productos con imágenes, precios y descripciones
+- Filtro por categorías 
+- Carrito de compras con persistencia local
+- Página de checkout con resumen de orden
+- Diseño responsivo y accesible con Bootstrap
+
+## 🧰 Tecnologías
+
+| Tecnología     | Uso principal                        |
+|----------------|--------------------------------------|
+| React          | Renderizado de componentes y lógica |
+| Bootstrap 5    | Estilos y diseño responsivo          |
+| React Router   | Navegación entre vistas              |
+| Context    | Gestión de estado global (carrito)   |
+| FireBase  | Base de Datos         |
+| React Hot Toast  | Para mostrar Notificaciones 
+| Sweetaler2| Para mostras alertas|
+|React Icons| Paquete de iconos | 
+| React Hook Form| Validación de datos en formularios|   
+
+## 📦 Instalación
+
+Para clonar el repositorio copia y pega las siguientes lineas en una cosola
+```bash
+git clone https://github.com/CarlosDom92/react-vilucap.git
+cd react-vilucap
+npm install
+npm run dev
+```
+## Demo
+
+Si desea ver el proyecto completo online, ingresa al siguiente link: [Vilu Cap app]()
+![Logo](/public/Vilu%20Cap.png)
+
+## Autor
+
+- [@Carlos Domínguez](https://www.github.com/CarlosDom92)
+
