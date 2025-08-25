@@ -69,6 +69,9 @@ const ItemCount = ({ stock, onAdd }) => {
               </ListGroup>
             </Col>
           </Row>
+          {stock < 3 && (
+            <p className="text-danger">Solo hay {stock} unidades en estock.</p>
+          )}
           <Breadcrumb />
           <Col className="d-grid gap-2">
             <Button
@@ -82,19 +85,21 @@ const ItemCount = ({ stock, onAdd }) => {
           </Col>
         </>
       )}
-      <Breadcrumb />
-      <Breadcrumb />
 
-      <Row>
-        <Col className="d-grid gap-2">
-          {viewCart && (
-            <Button variant="vilucap" className="icon-hover" onClick={goCart}>
-              {" "}
-              <TbShoppingCartDollar /> Ver Carrito
-            </Button>
-          )}
-        </Col>
-      </Row>
+      {viewCart && (
+        <>
+          <Breadcrumb />
+          <Breadcrumb />
+          <Row>
+            <Col className="d-grid gap-2">
+              <Button variant="vilucap" className="icon-hover" onClick={goCart}>
+                {" "}
+                <TbShoppingCartDollar /> Ver Carrito
+              </Button>
+            </Col>
+          </Row>
+        </>
+      )}
     </>
   );
 };

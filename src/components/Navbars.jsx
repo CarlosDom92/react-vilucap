@@ -3,15 +3,16 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import CartWidgetIcon from "./CartWidgetIcon";
-import { Link } from "react-router-dom";
-import { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 function Navbars() {
   const [expanded, setExpanded] = useState(true);
+  const location = useLocation();
 
-  const handleNavClick = () => {
+  useEffect(() => {
     setExpanded(false);
-  };
+  }, [location]);
   return (
     <Navbar
       expand="lg"
@@ -25,7 +26,7 @@ function Navbars() {
           as={Link}
           to="/"
           className="d-flex justify-content-center align-items-center"
-          onClick={handleNavClick}
+          onClick={() => setExpanded(false)}
         >
           <img
             alt="Logo"
@@ -38,45 +39,53 @@ function Navbars() {
         </Navbar.Brand>
         <Navbar.Toggle
           aria-controls="basic-navbar-nav"
-          onClick={() => setExpanded(!expanded)}
+          onClick={() => setExpanded((prev) => !prev)}
         />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link as={Link} to="/" onClick={handleNavClick}>
+            <Nav.Link as={Link} to="/" onClick={() => setExpanded(false)}>
               Inicio
             </Nav.Link>
             <Nav.Link
               as={Link}
               to="/categories/hombre"
-              onClick={handleNavClick}
+              onClick={() => setExpanded(false)}
             >
               Hombre
             </Nav.Link>
-            <Nav.Link as={Link} to="/categories/mujer" onClick={handleNavClick}>
+            <Nav.Link
+              as={Link}
+              to="/categories/mujer"
+              onClick={() => setExpanded(false)}
+            >
               Mujer
             </Nav.Link>
-            <Nav.Link as={Link} to="/categories/niños" onClick={handleNavClick}>
+            <Nav.Link
+              as={Link}
+              to="/categories/niños"
+              onClick={() => setExpanded(false)}
+            >
               Niños
             </Nav.Link>
             <NavDropdown title="Categorias" id="basic-nav-dropdown">
               <NavDropdown.Item
                 as={Link}
                 to="/categories/Snapback"
-                onClick={handleNavClick}
+                onClick={() => setExpanded(false)}
               >
                 Snapback
               </NavDropdown.Item>
               <NavDropdown.Item
                 as={Link}
                 to="/categories/Trucker"
-                onClick={handleNavClick}
+                onClick={() => setExpanded(false)}
               >
                 Trucker
               </NavDropdown.Item>
               <NavDropdown.Item
                 as={Link}
                 to="/categories/EdicionLimitada"
-                onClick={handleNavClick}
+                onClick={() => setExpanded(false)}
               >
                 Edición Limitada
               </NavDropdown.Item>
@@ -84,35 +93,35 @@ function Navbars() {
               <NavDropdown.Item
                 as={Link}
                 to="/categories/Urbano"
-                onClick={handleNavClick}
+                onClick={() => setExpanded(false)}
               >
                 Urbano
               </NavDropdown.Item>
               <NavDropdown.Item
                 as={Link}
                 to="/categories/Vintage"
-                onClick={handleNavClick}
+                onClick={() => setExpanded(false)}
               >
                 Vintage
               </NavDropdown.Item>
               <NavDropdown.Item
                 as={Link}
                 to="/categories/Minimalista"
-                onClick={handleNavClick}
+                onClick={() => setExpanded(false)}
               >
                 Minimalista
               </NavDropdown.Item>
               <NavDropdown.Item
                 as={Link}
                 to="/categories/Ajustable"
-                onClick={handleNavClick}
+                onClick={() => setExpanded(false)}
               >
                 Ajustable
               </NavDropdown.Item>
               <NavDropdown.Item
                 as={Link}
                 to="/categories/Bordado"
-                onClick={handleNavClick}
+                onClick={() => setExpanded(false)}
               >
                 Bordado
               </NavDropdown.Item>
@@ -122,7 +131,7 @@ function Navbars() {
             as={Link}
             to="/cart"
             className="p-4"
-            onClick={handleNavClick}
+            onClick={() => setExpanded(false)}
           >
             <CartWidgetIcon />
           </Nav.Link>
